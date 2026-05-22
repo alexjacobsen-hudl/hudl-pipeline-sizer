@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hudl Video Pipeline Sizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">Hudl Video Pipeline Sizer</span>
+      </div>
+      <div class="subtitle">Understand the full scope of a video ask before you make it.</div>
+    </header>
+
+    <main class="main">
+
+      <div class="alignment-note">
+        <div class="alignment-note-title">A note on these numbers</div>
+        <div class="alignment-note-body">These are baseline estimates intended to align our teams on the scope of a typical ask. Real-world hours will flex up or down depending on project complexity, footage volume, where the project sits in the workflow, and how much can be reused from prior work. Use this as a starting point for the conversation, not a final quote.</div>
+      </div>
+
+      <section class="sizer-section">
+        <div class="section-label">Size your ask</div>
+
+        <div class="sizer-row">
+          <label>Hero videos</label>
+          <input type="range" id="heroes" min="0" max="6" step="1" value="1" />
+          <span class="val" id="heroes-val">1</span>
+        </div>
+        <div class="sizer-row">
+          <label>Hero revisions</label>
+          <input type="range" id="hero-revs" min="0" max="5" step="1" value="2" />
+          <span class="val" id="hero-revs-val">2</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sizer-row">
+          <label>Cutdown concepts</label>
+          <input type="range" id="cuts" min="0" max="32" step="1" value="0" />
+          <span class="val" id="cuts-val">0</span>
+        </div>
+
+        <div class="ratio-row">
+          <span class="ratio-label">Export ratios</span>
+          <div class="ratio-chip on" data-ratio="16:9">
+            <svg width="20" height="14" viewBox="0 0 20 14"><rect x="0.5" y="0.5" width="19" height="13" rx="1" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            16:9
+          </div>
+          <div class="ratio-chip" data-ratio="9:16">
+            <svg width="10" height="18" viewBox="0 0 10 18"><rect x="0.5" y="0.5" width="9" height="17" rx="1" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            9:16
+          </div>
+          <div class="ratio-chip" data-ratio="4:5">
+            <svg width="14" height="18" viewBox="0 0 14 18"><rect x="0.5" y="0.5" width="13" height="17" rx="1" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            4:5
+          </div>
+          <div class="ratio-chip" data-ratio="1:1">
+            <svg width="16" height="16" viewBox="0 0 16 16"><rect x="0.5" y="0.5" width="15" height="15" rx="1" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            1:1
+          </div>
+        </div>
+
+        <div class="ratio-callout-wrap">
+          <span id="ratio-callout">1 concept × 1 ratio = 1 export</span>
+        </div>
+
+        <div class="sizer-row">
+          <label>Cutdown revisions</label>
+          <input type="range" id="cut-revs" min="0" max="3" step="1" value="1" />
+          <span class="val" id="cut-revs-val">1</span>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total time</div>
+          <div class="stat-value" id="total-time">— hrs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Video pipeline BTS</div>
+          <div class="stat-value" id="invisible-pct">—%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Realistic turnaround</div>
+          <div class="stat-value" id="turnaround">— days</div>
+        </div>
+      </section>
+
+      <div class="pipeline-header">
+        <div class="section-label">The full pipeline</div>
+        <div class="pipeline-hint">Edit hours · toggle stages off if already done</div>
+      </div>
+
+      <div class="bulk-toggle-row">
+        <div class="bulk-toggle-wrap">
+          <div class="stage-toggle on" id="bulk-bts-toggle" role="button" aria-label="Toggle all BTS stages"></div>
+          <div>
+            <div class="bulk-toggle-label">All BTS work</div>
+            <div class="bulk-toggle-desc">Turn off everything in blue at once. Useful when ingest, backup, and proxies are already done from a prior project.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="stages" class="stages"></div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="legend-swatch swatch-bts"></span>Invisible BTS work</div>
+        <div class="legend-item"><span class="legend-swatch swatch-creative"></span>Creative work</div>
+        <div class="legend-item"><span class="legend-swatch swatch-delivery"></span>Delivery and archive</div>
+      </div>
+
+      <button class="reset-btn" id="reset-btn">Reset to defaults</button>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
