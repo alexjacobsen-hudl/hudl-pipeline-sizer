@@ -24,6 +24,10 @@
   --delivery-bar: #B4B2A9;
   --delivery-text: #444441;
 
+  --transfer-fill: #EDF7ED;
+  --transfer-bar: #66BB6A;
+  --transfer-text: #1B5E20;
+
   --radius-md: 8px;
   --radius-lg: 12px;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -43,6 +47,10 @@
     --border-secondary: rgba(240, 238, 230, 0.22);
     --border-info: #378ADD;
     --accent: #85B7EB;
+
+    --transfer-fill: #1B2E1B;
+    --transfer-bar: #66BB6A;
+    --transfer-text: #A5D6A7;
   }
 }
 
@@ -474,6 +482,22 @@ input[type="range"]::-moz-range-thumb {
 .reset-btn:hover {
   background: var(--bg-surface);
 }
+
+/* Transfer stages */
+.stage-row.transfer { background: var(--transfer-fill); }
+.stage-row.transfer .stage-name { color: var(--transfer-text); }
+.stage-row.transfer .stage-desc { color: var(--transfer-text); }
+.stage-row.transfer .stage-bar { background: var(--transfer-bar); }
+.stage-row.transfer .stage-hours-unit { color: var(--transfer-text); }
+
+.stage-cost {
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 3px;
+}
+.stage-row.transfer .stage-cost { color: var(--transfer-text); opacity: 0.85; }
+
+.swatch-transfer { background: #66BB6A; }
 
 /* Small screens */
 @media (max-width: 640px) {

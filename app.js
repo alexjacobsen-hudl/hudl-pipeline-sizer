@@ -17,6 +17,22 @@
   // ----------------------------------------------------------------------
   const STAGES = [
     {
+      id: "masv",
+      name: "MASV transfer",
+      desc: "UDP-accelerated transfer from freelance crew — parallel streams at near-ISP speed. Enables same-day editing.",
+      cat: "transfer",
+      calc: ({ gb }) => 0.005 * gb,
+      costFn: ({ gb }) => 0.25 * gb
+    },
+    {
+      id: "consumer_transfer",
+      name: "Drive / WeTransfer / OneDrive",
+      desc: "Consumer cloud services — free or enterprise-included, but HTTP-throttled, rate-limited, and prone to errors mid-download on raw video.",
+      cat: "transfer",
+      calc: ({ gb }) => 0.1 * gb,
+      costFn: () => 0
+    },
+    {
       id: "offload",
       name: "Card offload from camera",
       desc: "Backup cards. If on-set, dump to SSD. If not, dump to LucidLink and EVO.",
@@ -128,7 +144,7 @@
   // ----------------------------------------------------------------------
   const state = {};
   STAGES.forEach(s => {
-    state[s.id] = { hours: null, enabled: true, manuallyEdited: false };
+    state[s.id] = { hours: null, enabled: s.cat !== "transfer", manuallyEdited: false };
   });
 
   const selectedRatios = new Set(["16:9"]);
@@ -152,7 +168,8 @@
       r: r,
       x: c * r,
       hr: +document.getElementById("hero-revs").value,
-      cr: +document.getElementById("cut-revs").value
+      cr: +document.getElementById("cut-revs").value,
+      gb: +document.getElementById("footage-gb").value
     };
   }
 
@@ -187,6 +204,7 @@
     document.getElementById("cuts-val").textContent = inputs.c;
     document.getElementById("hero-revs-val").textContent = inputs.hr;
     document.getElementById("cut-revs-val").textContent = inputs.cr;
+    document.getElementById("footage-gb-val").textContent = inputs.gb + " GB";
 
     // Ratio callout
     const callout = document.getElementById("ratio-callout");
@@ -240,6 +258,13 @@
       const row = document.createElement("div");
       row.className = "stage-row " + s.cat + (enabled ? "" : " off");
 
+      const cost = s.costFn ? s.costFn(inputs) : null;
+      const costHtml = cost !== null
+        ? '<div class="stage-cost">' +
+            (cost > 0 ? '$' + cost.toFixed(2) + ' transfer fee' : 'Free · enterprise or personal plan') +
+          '</div>'
+        : '';
+
       row.innerHTML =
         '<div class="stage-toggle ' + (enabled ? "on" : "") +
           '" data-toggle="' + s.id +
@@ -247,6 +272,7 @@
         '<div>' +
           '<div class="stage-name">' + s.name + '</div>' +
           '<div class="stage-desc">' + s.desc + '</div>' +
+          costHtml +
         '</div>' +
         '<div class="stage-bar-wrap">' +
           '<div class="stage-bar" style="width:' + widthPct + '%;"></div>' +
@@ -265,7 +291,16 @@
     wrap.querySelectorAll("[data-toggle]").forEach(el => {
       el.addEventListener("click", () => {
         const id = el.getAttribute("data-toggle");
-        state[id].enabled = !state[id].enabled;
+        const stage = STAGES.find(s => s.id === id);
+        if (stage && stage.cat === "transfer") {
+          const wasEnabled = state[id].enabled;
+          STAGES.filter(s => s.cat === "transfer").forEach(s => {
+            state[s.id].enabled = false;
+          });
+          if (!wasEnabled) state[id].enabled = true;
+        } else {
+          state[id].enabled = !state[id].enabled;
+        }
         render();
       });
     });
@@ -289,7 +324,7 @@
   // ----------------------------------------------------------------------
   function reset() {
     STAGES.forEach(s => {
-      state[s.id] = { hours: null, enabled: true, manuallyEdited: false };
+      state[s.id] = { hours: null, enabled: s.cat !== "transfer", manuallyEdited: false };
     });
     selectedRatios.clear();
     selectedRatios.add("16:9");
@@ -301,13 +336,14 @@
     document.getElementById("hero-revs").value = 2;
     document.getElementById("cuts").value = 0;
     document.getElementById("cut-revs").value = 1;
+    document.getElementById("footage-gb").value = 100;
     render();
   }
 
   // ----------------------------------------------------------------------
   // Wire up the controls
   // ----------------------------------------------------------------------
-  ["heroes", "cuts", "hero-revs", "cut-revs"].forEach(id => {
+  ["heroes", "cuts", "hero-revs", "cut-revs", "footage-gb"].forEach(id => {
     document.getElementById(id).addEventListener("input", render);
   });
 
