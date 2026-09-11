@@ -22,20 +22,20 @@
         { id: "licensing", name: "Stock footage & music licensing", default: 800 },
       ],
       stages: [
-        { id: "hype_masv",     name: "MASV transfer",                  desc: "UDP-accelerated transfer from freelance crew — parallel streams at near-ISP speed. Enables same-day editing.",                    cat: "transfer",  calc: ({ gb }) => 0.005 * gb, costFn: ({ gb }) => 0.25 * gb },
-        { id: "hype_consumer", name: "Drive / WeTransfer / OneDrive",  desc: "Consumer cloud services — free or enterprise-included, but HTTP-throttled and prone to errors mid-download on raw video.",       cat: "transfer",  calc: ({ gb }) => 0.1 * gb,   costFn: () => 0 },
-        { id: "hype_source",   name: "Asset sourcing",                 desc: "Pull relevant footage, product clips, UI recordings, and licensed music from archive",                                           cat: "bts",       calc: ({ h }) => 1 + 0.75 * h },
-        { id: "hype_ll",       name: "LucidLink sync",                 desc: "Upload sourced assets to LucidLink for remote access",                                                                           cat: "bts",       calc: () => 1.0 },
-        { id: "hype_proxy",    name: "Proxy generation",               desc: "Generate proxies for sourced footage",                                                                                           cat: "bts",       calc: () => 2.0 },
-        { id: "hype_organize", name: "Organize & prep",                desc: "Bin, label, sync, prep project file",                                                                                            cat: "bts",       calc: ({ h }) => 0.5 + 0.25 * h },
-        { id: "hype_edit",     name: "Music-driven rough cut",         desc: "First pass assembly — rhythm edit against music, quick-cut selects",                                                             cat: "creative",  calc: ({ h }) => 4 * h },
-        { id: "hype_motion",   name: "Motion graphics",                desc: "On-screen MGFX, animated titles, branding elements",                                                                             cat: "creative",  calc: ({ h }) => 3 * h },
-        { id: "hype_sound",    name: "Sound design",                   desc: "SFX layering, music mix, audio polish",                                                                                          cat: "creative",  calc: ({ h }) => 2 * h },
-        { id: "hype_color",    name: "Color pass",                     desc: "Grade for consistency across sourced footage",                                                                                   cat: "creative",  calc: ({ h }) => 1.5 * h },
-        { id: "hype_review",   name: "Internal review",                desc: "Watch, note, refine before sharing",                                                                                             cat: "creative",  calc: ({ h, x }) => 0.5 * h + 0.05 * x },
-        { id: "hype_revise",   name: "Revisions",                      desc: "Marketing notes, re-cut, re-export",                                                                                             cat: "creative",  calc: ({ h, x, hr, cr }) => 1 * h * hr + 0.2 * x * cr },
-        { id: "hype_export",   name: "Final export & QC",              desc: "Master file per ratio, spec-check, sanity watch",                                                                                cat: "delivery",  calc: ({ h, x }) => 0.5 * h + 0.15 * x },
-        { id: "hype_deliver",  name: "Delivery & archive",             desc: "Upload, file off, document, EVO archive",                                                                                        cat: "delivery",  calc: ({ h, x }) => 0.5 + 0.1 * h + 0.08 * x },
+        { id: "hype_masv",     name: "MASV transfer",                 desc: "UDP-accelerated transfer from freelance crew — parallel streams at near-ISP speed. Enables same-day editing.",              cat: "transfer", calc: ({ gb }) => 0.005 * gb, costFn: ({ gb }) => 0.25 * gb },
+        { id: "hype_consumer", name: "Drive / WeTransfer / OneDrive", desc: "Consumer cloud services — free or enterprise-included, but HTTP-throttled and prone to errors mid-download on raw video.", cat: "transfer", calc: ({ gb }) => 0.1 * gb,   costFn: () => 0 },
+        { id: "hype_source",   name: "Asset sourcing",                desc: "Pull relevant footage, product clips, UI recordings, and licensed music from archive",                                     cat: "bts",      calc: ({ h }) => 1 + 0.75 * h },
+        { id: "hype_ll",       name: "LucidLink sync",                desc: "Upload sourced assets to LucidLink for remote access",                                                                     cat: "bts",      calc: () => 1.0 },
+        { id: "hype_proxy",    name: "Proxy generation",              desc: "Generate proxies for sourced footage",                                                                                     cat: "bts",      calc: () => 2.0 },
+        { id: "hype_organize", name: "Organize & prep",               desc: "Bin, label, sync, prep project file",                                                                                      cat: "bts",      calc: ({ h }) => 0.5 + 0.25 * h },
+        { id: "hype_edit",     name: "Music-driven rough cut",        desc: "First pass assembly — rhythm edit against music, quick-cut selects",                                                       cat: "creative", calc: ({ h }) => 4 * h },
+        { id: "hype_motion",   name: "Motion graphics",               desc: "On-screen MGFX, animated titles, branding elements",                                                                       cat: "creative", calc: ({ h }) => 3 * h },
+        { id: "hype_sound",    name: "Sound design",                  desc: "SFX layering, music mix, audio polish",                                                                                    cat: "creative", calc: ({ h }) => 2 * h },
+        { id: "hype_color",    name: "Color pass",                    desc: "Grade for consistency across sourced footage",                                                                             cat: "creative", calc: ({ h }) => 1.5 * h },
+        { id: "hype_review",   name: "Internal review",               desc: "Watch, note, refine before sharing",                                                                                       cat: "creative", calc: ({ h, x }) => 0.5 * h + 0.05 * x },
+        { id: "hype_revise",   name: "Revisions",                     desc: "Marketing notes, re-cut, re-export",                                                                                       cat: "creative", calc: ({ h, x, hr, cr }) => 1 * h * hr + 0.2 * x * cr },
+        { id: "hype_export",   name: "Final export & QC",             desc: "Master file per ratio, spec-check, sanity watch",                                                                          cat: "delivery", calc: ({ h, hrat, x }) => 0.5 * h * hrat + 0.15 * x },
+        { id: "hype_deliver",  name: "Delivery & archive",            desc: "Upload, file off, document, EVO archive",                                                                                  cat: "delivery", calc: ({ h, hrat, x }) => 0.5 + 0.1 * h * hrat + 0.08 * x },
       ]
     },
 
@@ -56,25 +56,23 @@
         { id: "crew",   name: "External crew / day rates",                    default: 3000 },
       ],
       stages: [
-        { id: "cs_masv",      name: "MASV transfer",                   desc: "UDP-accelerated transfer from freelance crew — parallel streams at near-ISP speed. Enables same-day editing.",              cat: "transfer",  calc: ({ gb }) => 0.005 * gb, costFn: ({ gb }) => 0.25 * gb },
-        { id: "cs_consumer",  name: "Drive / WeTransfer / OneDrive",   desc: "Consumer cloud services — free or enterprise-included, but HTTP-throttled and prone to errors mid-download on raw video.", cat: "transfer",  calc: ({ gb }) => 0.1 * gb,   costFn: () => 0 },
-        { id: "cs_preprod",   name: "Pre-production & scheduling",     desc: "Client coordination, interview prep, logistics, location scouting",                                                        cat: "bts",       calc: ({ h }) => 2 + 2 * h },
-        { id: "cs_offload",   name: "Card offload from camera",        desc: "Dump cards from shoot — interview + B-roll footage",                                                                       cat: "bts",       calc: ({ h }) => 1 + 0.5 * h },
-        { id: "cs_verify",    name: "Checksum verification",           desc: "Confirm every file copied without corruption",                                                                              cat: "bts",       calc: () => 1.0 },
-        { id: "cs_evo",       name: "EVO backup",                      desc: "Mirror everything to the network drive",                                                                                   cat: "bts",       calc: () => 2.0 },
-        { id: "cs_ll",        name: "LucidLink sync",                  desc: "Upload footage to LucidLink AWS server",                                                                                   cat: "bts",       calc: () => 2.5 },
-        { id: "cs_proxy",     name: "Proxy generation",                desc: "Proxies for all interview + B-roll footage",                                                                               cat: "bts",       calc: ({ h }) => 3 + 1 * h },
-        { id: "cs_organize",  name: "Folder structure & organize",     desc: "Bin interviews by subject, B-roll by scene, sync dual audio, prep project file",                                          cat: "bts",       calc: ({ h }) => 1.5 + 0.5 * h },
-        { id: "cs_setup",     name: "Premiere project setup",          desc: "Import, relink, build sequences for each case study",                                                                      cat: "bts",       calc: ({ h }) => 0.5 + 0.5 * h },
-        { id: "cs_selects",   name: "Interview selects",               desc: "Review all interview footage, pull strongest lines and moments",                                                           cat: "creative",  calc: ({ h }) => 4 * h },
-        { id: "cs_structure", name: "Story structure & rough cut",     desc: "Build narrative arc from selects, lay in scratch audio",                                                                   cat: "creative",  calc: ({ h }) => 8 * h },
-        { id: "cs_broll",     name: "B-roll edit",                     desc: "Layer supplementary footage to support the interview narrative",                                                           cat: "creative",  calc: ({ h }) => 4 * h },
-        { id: "cs_motion",    name: "Motion graphics & lower thirds",  desc: "Name tags, title cards, branded graphics",                                                                                 cat: "creative",  calc: ({ h }) => 3 * h },
-        { id: "cs_color",     name: "Color & audio pass",              desc: "Grade footage, clean and mix interview + ambient audio",                                                                   cat: "creative",  calc: ({ h }) => 6 * h },
-        { id: "cs_review",    name: "Internal review",                 desc: "Watch, note, refine before sharing with client",                                                                           cat: "creative",  calc: ({ h, x }) => 1 * h + 0.1 * x },
-        { id: "cs_revise",    name: "Revisions",                       desc: "Marketing + client notes, re-cut, re-export",                                                                              cat: "creative",  calc: ({ h, x, hr, cr }) => 2 * h * hr + 0.3 * x * cr },
-        { id: "cs_export",    name: "Final export & QC",               desc: "Master file per ratio, spec-check, sanity watch",                                                                          cat: "delivery",  calc: ({ h, x }) => 0.75 * h + 0.2 * x },
-        { id: "cs_deliver",   name: "Delivery & archive",              desc: "Upload, file off, document, EVO archive from LucidLink",                                                                   cat: "delivery",  calc: ({ h, x }) => 1.0 + 0.2 * h + 0.08 * x },
+        { id: "cs_masv",      name: "MASV transfer",                  desc: "UDP-accelerated transfer from freelance crew — parallel streams at near-ISP speed. Enables same-day editing.",              cat: "transfer", calc: ({ gb }) => 0.005 * gb, costFn: ({ gb }) => 0.25 * gb },
+        { id: "cs_consumer",  name: "Drive / WeTransfer / OneDrive",  desc: "Consumer cloud services — free or enterprise-included, but HTTP-throttled and prone to errors mid-download on raw video.", cat: "transfer", calc: ({ gb }) => 0.1 * gb,   costFn: () => 0 },
+        { id: "cs_preprod",   name: "Pre-production & scheduling",    desc: "Client coordination, interview prep, logistics, location scouting",                                                        cat: "bts",      calc: ({ h }) => 2 + 2 * h },
+        { id: "cs_offload",   name: "Card offload from camera",       desc: "Dump cards from shoot — interview + B-roll footage",                                                                       cat: "bts",      calc: () => 2 },
+        { id: "cs_verify",    name: "Checksum verification",          desc: "Confirm every file copied without corruption",                                                                             cat: "bts",      calc: () => 1.0 },
+        { id: "cs_evo",       name: "EVO backup",                     desc: "Mirror everything to the network drive",                                                                                   cat: "bts",      calc: () => 4.0 },
+        { id: "cs_ll",        name: "LucidLink sync",                 desc: "Upload footage to LucidLink AWS server",                                                                                   cat: "bts",      calc: () => 2.5 },
+        { id: "cs_proxy",     name: "Proxy generation",               desc: "Proxies for all interview + B-roll footage",                                                                               cat: "bts",      calc: () => 6 },
+        { id: "cs_organize",  name: "Folder structure & organize",    desc: "Bin interviews by subject, B-roll by scene, sync dual audio, prep project file",                                          cat: "bts",      calc: ({ h }) => 1.5 + 0.5 * h },
+        { id: "cs_setup",     name: "Premiere project setup",         desc: "Import, relink, build sequences for each case study",                                                                     cat: "bts",      calc: ({ h }) => 0.5 + 0.5 * h },
+        { id: "cs_roughcut1", name: "Rough Cut 1",                    desc: "First full-pass edit: interview selects, story structure, B-roll layer, motion graphics & lower thirds, color + audio mix", cat: "creative", calc: ({ h }) => 25 * h },
+        { id: "cs_review1",   name: "Review 1",                      desc: "Internal watch, written notes, alignment before sending to client",                                                        cat: "creative", calc: ({ h }) => 1.5 * h },
+        { id: "cs_roughcut2", name: "Rough Cut 2",                    desc: "Address review notes — restructure if needed, refine selects, update motion/audio",                                        cat: "creative", calc: ({ h }) => 8 * h },
+        { id: "cs_review2",   name: "Review 2",                      desc: "Second internal review; confirm all notes addressed before client delivery",                                               cat: "creative", calc: ({ h }) => 1 * h },
+        { id: "cs_finalcut",  name: "Final Cut",                      desc: "Final color, audio polish, title card lock, picture lock",                                                                 cat: "creative", calc: ({ h }) => 4 * h },
+        { id: "cs_export",    name: "Final export & QC",              desc: "Master file per ratio, spec-check, sanity watch",                                                                          cat: "delivery", calc: ({ h, hrat, x }) => 0.75 * h * hrat + 0.2 * x },
+        { id: "cs_deliver",   name: "Delivery & archive",             desc: "Upload, file off, document, EVO archive from LucidLink",                                                                   cat: "delivery", calc: ({ h, hrat, x }) => 1.0 + 0.2 * h * hrat + 0.08 * x },
       ]
     }
   };
@@ -82,8 +80,8 @@
   // -----------------------------------------------------------------------
   // App state
   // -----------------------------------------------------------------------
-  let currentTypeId   = "hype";
-  let executionMode   = "internal";
+  let currentTypeId = "hype";
+  let executionMode = "internal";
 
   const stageStateByType = {};
   Object.keys(PROJECT_TYPES).forEach(typeId => {
@@ -101,7 +99,8 @@
     });
   });
 
-  const selectedRatios = new Set(["16:9"]);
+  const selectedHeroRatios = new Set(["16:9"]);
+  const selectedCutRatios  = new Set(["16:9"]);
 
   // -----------------------------------------------------------------------
   // Helpers
@@ -124,13 +123,16 @@
   }
 
   function getInputs() {
-    const c = numEl("cuts");
-    const r = selectedRatios.size;
+    const h    = numEl("heroes");
+    const c    = numEl("cuts");
+    const hrat = selectedHeroRatios.size;
+    const crat = selectedCutRatios.size;
     return {
-      h:  numEl("heroes"),
-      c:  c,
-      r:  r,
-      x:  c * r,
+      h,
+      hrat,
+      c,
+      crat,
+      x:  c * crat,
       hr: numEl("hero-revs"),
       cr: numEl("cut-revs"),
       gb: numEl("footage-gb"),
@@ -202,9 +204,9 @@
 
     if (executionMode !== "internal") return;
 
-    const hcList   = document.getElementById("hard-costs-list");
+    const hcList    = document.getElementById("hard-costs-list");
     const hardCosts = PROJECT_TYPES[currentTypeId].hardCosts;
-    const hcState  = hardCostStateByType[currentTypeId];
+    const hcState   = hardCostStateByType[currentTypeId];
 
     hcList.innerHTML = "";
     hardCosts.forEach(hc => {
@@ -241,23 +243,34 @@
     const state  = currentState();
     const stages = currentStages();
 
-    // Ratio callout
-    const callout = document.getElementById("ratio-callout");
-    if (inputs.c === 0) {
-      callout.textContent = inputs.r + " ratio" + (inputs.r === 1 ? "" : "s") + " selected";
-    } else {
-      callout.textContent =
-        inputs.c + " concept" + (inputs.c === 1 ? "" : "s") +
-        " × " + inputs.r + " ratio" + (inputs.r === 1 ? "" : "s") +
-        " = " + inputs.x + " export" + (inputs.x === 1 ? "" : "s");
+    // Hero ratio callout
+    const heroCallout = document.getElementById("hero-ratio-callout");
+    if (heroCallout) {
+      heroCallout.textContent =
+        inputs.h + " video" + (inputs.h === 1 ? "" : "s") +
+        " × " + inputs.hrat + " ratio" + (inputs.hrat === 1 ? "" : "s") +
+        " = " + (inputs.h * inputs.hrat) + " hero export" + (inputs.h * inputs.hrat === 1 ? "" : "s");
+    }
+
+    // Cut ratio callout
+    const cutCallout = document.getElementById("ratio-callout");
+    if (cutCallout) {
+      if (inputs.c === 0) {
+        cutCallout.textContent = inputs.crat + " ratio" + (inputs.crat === 1 ? "" : "s") + " selected";
+      } else {
+        cutCallout.textContent =
+          inputs.c + " concept" + (inputs.c === 1 ? "" : "s") +
+          " × " + inputs.crat + " ratio" + (inputs.crat === 1 ? "" : "s") +
+          " = " + inputs.x + " export" + (inputs.x === 1 ? "" : "s");
+      }
     }
 
     // Compute totals
     let totalHours = 0, btsHours = 0, totalLaborCost = 0, totalXferCost = 0;
     const computed = stages.map(s => {
-      const raw       = stageHours(s, inputs);
-      const eff       = state[s.id].enabled ? raw : 0;
-      const xferCost  = s.costFn ? s.costFn(inputs) : 0;
+      const raw      = stageHours(s, inputs);
+      const eff      = state[s.id].enabled ? raw : 0;
+      const xferCost = s.costFn ? s.costFn(inputs) : 0;
       const laborCost = eff * rate;
       totalHours     += eff;
       if (s.cat === "bts") btsHours += eff;
@@ -327,7 +340,7 @@
       wrap.appendChild(row);
     });
 
-    // Bind handlers
+    // Bind stage handlers
     wrap.querySelectorAll("[data-toggle]").forEach(el => {
       el.addEventListener("click", () => {
         const id    = el.getAttribute("data-toggle");
@@ -368,10 +381,13 @@
       hardCostStateByType[currentTypeId][hc.id] = hc.default;
     });
 
-    selectedRatios.clear();
-    selectedRatios.add("16:9");
-    document.querySelectorAll(".ratio-chip").forEach(chip => {
-      chip.classList.toggle("on", selectedRatios.has(chip.getAttribute("data-ratio")));
+    selectedHeroRatios.clear(); selectedHeroRatios.add("16:9");
+    selectedCutRatios.clear();  selectedCutRatios.add("16:9");
+    document.querySelectorAll("[data-hero-ratio]").forEach(chip => {
+      chip.classList.toggle("on", selectedHeroRatios.has(chip.getAttribute("data-hero-ratio")));
+    });
+    document.querySelectorAll("[data-cut-ratio]").forEach(chip => {
+      chip.classList.toggle("on", selectedCutRatios.has(chip.getAttribute("data-cut-ratio")));
     });
 
     const cfg = PROJECT_TYPES[currentTypeId].sizerConfig;
@@ -379,8 +395,8 @@
     setSliderNum("hero-revs", "hero-revs-range", cfg.revDefault);
     setSliderNum("cuts",      "cuts-range",      0);
     setSliderNum("cut-revs",  "cut-revs-range",  1);
-    document.getElementById("footage-gb").value      = 1000;
-    document.getElementById("freelance-rate").value  = 150;
+    document.getElementById("footage-gb").value     = 1000;
+    document.getElementById("freelance-rate").value = 150;
     renderHardCosts();
     render();
   }
@@ -401,6 +417,23 @@
     if (!num || !range) return;
     range.addEventListener("input", () => { num.value = range.value; render(); });
     num.addEventListener("input",   () => { range.value = Math.min(Math.max(0, +num.value || 0), +range.max); render(); });
+  }
+
+  // -----------------------------------------------------------------------
+  // Wire ratio chips
+  // -----------------------------------------------------------------------
+  function wireRatioChips(selector, ratioSet, attr) {
+    document.querySelectorAll(selector).forEach(chip => {
+      chip.addEventListener("click", () => {
+        const r = chip.getAttribute(attr);
+        if (ratioSet.has(r)) {
+          if (ratioSet.size > 1) { ratioSet.delete(r); chip.classList.remove("on"); }
+        } else {
+          ratioSet.add(r); chip.classList.add("on");
+        }
+        render();
+      });
+    });
   }
 
   // -----------------------------------------------------------------------
@@ -427,20 +460,11 @@
   wireSliderNum("cuts",      "cuts-range");
   wireSliderNum("cut-revs",  "cut-revs-range");
 
+  wireRatioChips("[data-hero-ratio]", selectedHeroRatios, "data-hero-ratio");
+  wireRatioChips("[data-cut-ratio]",  selectedCutRatios,  "data-cut-ratio");
+
   document.getElementById("footage-gb").addEventListener("input", render);
   document.getElementById("freelance-rate").addEventListener("input", render);
-
-  document.querySelectorAll(".ratio-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      const ratio = chip.getAttribute("data-ratio");
-      if (selectedRatios.has(ratio)) {
-        if (selectedRatios.size > 1) { selectedRatios.delete(ratio); chip.classList.remove("on"); }
-      } else {
-        selectedRatios.add(ratio); chip.classList.add("on");
-      }
-      render();
-    });
-  });
 
   document.getElementById("bulk-bts-toggle").addEventListener("click", () => {
     setAllBts(!allBtsEnabled());
