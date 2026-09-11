@@ -18,6 +18,14 @@
 
     <main class="main">
 
+      <div class="type-selector-wrap">
+        <span class="type-selector-label">Project type</span>
+        <select id="project-type" class="type-selector">
+          <option value="hype">Hype Video</option>
+          <option value="case_study">Case Study</option>
+        </select>
+      </div>
+
       <div class="alignment-note">
         <div class="alignment-note-title">A note on these numbers</div>
         <div class="alignment-note-body">These are baseline estimates intended to align our teams on the scope of a typical ask. Real-world hours will flex up or down depending on project complexity, footage volume, where the project sits in the workflow, and how much can be reused from prior work. Use this as a starting point for the conversation, not a final quote.</div>
@@ -27,25 +35,31 @@
         <div class="section-label">Size your ask</div>
 
         <div class="sizer-row">
-          <label>Hero videos</label>
+          <label id="label-heroes">Videos</label>
           <input type="range" id="heroes" min="0" max="6" step="1" value="1" />
           <span class="val" id="heroes-val">1</span>
         </div>
         <div class="sizer-row">
-          <label>Hero revisions</label>
+          <label id="label-hero-revs">Revisions</label>
           <input type="range" id="hero-revs" min="0" max="5" step="1" value="2" />
           <span class="val" id="hero-revs-val">2</span>
         </div>
 
-        <div class="divider"></div>
+        <div id="row-interviews" class="sizer-row">
+          <label>Interview subjects</label>
+          <input type="range" id="interviews" min="1" max="8" step="1" value="2" />
+          <span class="val" id="interviews-val">2</span>
+        </div>
 
-        <div class="sizer-row">
+        <div class="divider cuts-section"></div>
+
+        <div class="sizer-row cuts-section">
           <label>Cutdown concepts</label>
           <input type="range" id="cuts" min="0" max="32" step="1" value="0" />
           <span class="val" id="cuts-val">0</span>
         </div>
 
-        <div class="ratio-row">
+        <div class="ratio-row cuts-section">
           <span class="ratio-label">Export ratios</span>
           <div class="ratio-chip on" data-ratio="16:9">
             <svg width="20" height="14" viewBox="0 0 20 14"><rect x="0.5" y="0.5" width="19" height="13" rx="1" fill="none" stroke="currentColor" stroke-width="1"/></svg>
@@ -65,11 +79,11 @@
           </div>
         </div>
 
-        <div class="ratio-callout-wrap">
+        <div class="ratio-callout-wrap cuts-section">
           <span id="ratio-callout">1 concept × 1 ratio = 1 export</span>
         </div>
 
-        <div class="sizer-row">
+        <div class="sizer-row cuts-section">
           <label>Cutdown revisions</label>
           <input type="range" id="cut-revs" min="0" max="3" step="1" value="1" />
           <span class="val" id="cut-revs-val">1</span>
@@ -98,11 +112,30 @@
           <div class="stat-label">Realistic turnaround</div>
           <div class="stat-value" id="turnaround">— days</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-label">Estimated cost</div>
+          <div class="stat-value" id="total-cost">—</div>
+        </div>
       </section>
 
       <div class="pipeline-header">
         <div class="section-label">The full pipeline</div>
-        <div class="pipeline-hint">Edit hours · toggle stages off if already done</div>
+        <div class="pipeline-hint">Toggle on/off · edit hours · click badge to flip internal/freelance</div>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-field">
+          <span class="rate-label">Internal rate</span>
+          <span class="rate-symbol">$</span>
+          <input type="number" id="internal-rate" value="125" min="1" max="999" step="5" />
+          <span class="rate-unit">/hr</span>
+        </div>
+        <div class="rate-field">
+          <span class="rate-label">Freelance rate</span>
+          <span class="rate-symbol">$</span>
+          <input type="number" id="freelance-rate" value="150" min="1" max="999" step="5" />
+          <span class="rate-unit">/hr</span>
+        </div>
       </div>
 
       <div class="bulk-toggle-row">
