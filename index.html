@@ -36,27 +36,28 @@
 
         <div class="sizer-row">
           <label id="label-heroes">Videos</label>
-          <input type="range" id="heroes" min="0" max="6" step="1" value="1" />
-          <span class="val" id="heroes-val">1</span>
-        </div>
-        <div class="sizer-row">
-          <label id="label-hero-revs">Revisions</label>
-          <input type="range" id="hero-revs" min="0" max="5" step="1" value="2" />
-          <span class="val" id="hero-revs-val">2</span>
+          <div class="slider-num-pair">
+            <input type="range" id="heroes-range" min="0" max="6" step="1" value="1" />
+            <input type="number" id="heroes" class="sizer-num-input" min="0" max="99" step="1" value="1" />
+          </div>
         </div>
 
-        <div id="row-interviews" class="sizer-row">
-          <label>Interview subjects</label>
-          <input type="range" id="interviews" min="1" max="8" step="1" value="2" />
-          <span class="val" id="interviews-val">2</span>
+        <div class="sizer-row">
+          <label id="label-hero-revs">Revisions</label>
+          <div class="slider-num-pair">
+            <input type="range" id="hero-revs-range" min="0" max="5" step="1" value="2" />
+            <input type="number" id="hero-revs" class="sizer-num-input" min="0" max="99" step="1" value="2" />
+          </div>
         </div>
 
         <div class="divider cuts-section"></div>
 
         <div class="sizer-row cuts-section">
           <label>Cutdown concepts</label>
-          <input type="range" id="cuts" min="0" max="32" step="1" value="0" />
-          <span class="val" id="cuts-val">0</span>
+          <div class="slider-num-pair">
+            <input type="range" id="cuts-range" min="0" max="32" step="1" value="0" />
+            <input type="number" id="cuts" class="sizer-num-input" min="0" max="99" step="1" value="0" />
+          </div>
         </div>
 
         <div class="ratio-row cuts-section">
@@ -85,18 +86,22 @@
 
         <div class="sizer-row cuts-section">
           <label>Cutdown revisions</label>
-          <input type="range" id="cut-revs" min="0" max="3" step="1" value="1" />
-          <span class="val" id="cut-revs-val">1</span>
+          <div class="slider-num-pair">
+            <input type="range" id="cut-revs-range" min="0" max="3" step="1" value="1" />
+            <input type="number" id="cut-revs" class="sizer-num-input" min="0" max="99" step="1" value="1" />
+          </div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="sizer-row">
-          <label>Raw footage (GB)</label>
-          <input type="range" id="footage-gb" min="10" max="500" step="10" value="100" />
-          <span class="val" id="footage-gb-val">100 GB</span>
+        <div class="sizer-row footage-row">
+          <label>Raw footage</label>
+          <div class="footage-input-wrap">
+            <input type="number" id="footage-gb" class="sizer-num-input footage-num" min="1" step="10" value="1000" />
+            <span class="footage-unit">GB</span>
+          </div>
+          <div class="footage-hint">Used to estimate time and cost when a freelance transfer stage is enabled below.</div>
         </div>
-        <div class="ratio-callout-wrap">Used to estimate time and cost when a freelance transfer stage is enabled below.</div>
       </section>
 
       <section class="stats-grid">
@@ -113,25 +118,34 @@
           <div class="stat-value" id="turnaround">— days</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Estimated cost</div>
+          <div class="stat-label" id="cost-label">Estimated cost</div>
           <div class="stat-value" id="total-cost">—</div>
         </div>
       </section>
 
       <div class="pipeline-header">
         <div class="section-label">The full pipeline</div>
-        <div class="pipeline-hint">Toggle on/off · edit hours · click badge to flip internal/freelance</div>
+        <div class="exec-mode-row">
+          <button class="exec-mode-btn active" data-mode="internal">Internal</button>
+          <button class="exec-mode-btn" data-mode="freelance">Freelance</button>
+        </div>
       </div>
 
-      <div class="rate-row">
-        <div class="rate-field">
-          <span class="rate-label">Internal rate</span>
-          <span class="rate-symbol">$</span>
-          <input type="number" id="internal-rate" value="125" min="1" max="999" step="5" />
-          <span class="rate-unit">/hr</span>
+      <div id="hard-costs-wrap" class="hard-costs-wrap">
+        <div class="hard-costs-header">
+          <span class="hard-costs-title">Hard costs</span>
+          <span class="hard-costs-subtitle">Travel, gear, crew — one-time costs for a typical single-location shoot</span>
         </div>
+        <div id="hard-costs-list" class="hard-costs-list"></div>
+        <div class="hard-costs-total">
+          <span>Total hard costs</span>
+          <span id="hard-costs-total-val">—</span>
+        </div>
+      </div>
+
+      <div id="rate-row-wrap" class="rate-row" style="display:none">
         <div class="rate-field">
-          <span class="rate-label">Freelance rate</span>
+          <span class="rate-label">Freelance hourly rate</span>
           <span class="rate-symbol">$</span>
           <input type="number" id="freelance-rate" value="150" min="1" max="999" step="5" />
           <span class="rate-unit">/hr</span>
